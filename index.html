@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>영어 음절 퀴즈</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <main class="app-shell">
+      <section id="lessonPage" class="page active" aria-labelledby="mainTitle">
+        <header class="hero">
+          <div class="hero-copy">
+            <h1 id="mainTitle">영어 음절 퀴즈</h1>
+            <p>규칙을 선택하고 10문제씩 연습해 보세요.</p>
+          </div>
+        </header>
+
+        <section class="lesson-card">
+          <div class="sequence-panel">
+            <div class="sequence-panel-head">
+              <strong>추천 학습 순서</strong>
+              <span>1번부터 차례대로 학습해 보세요.</span>
+            </div>
+            <div class="sequence-track" aria-hidden="true">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+            </div>
+          </div>
+
+          <div id="conceptGrid" class="concept-grid"></div>
+
+          <div class="lesson-footer">
+            <button id="showAllRulesBtn" class="secondary-btn wide-btn" type="button">
+              종합 연습 시작
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <section id="quizPage" class="page" aria-labelledby="focusTitle">
+        <header class="hero compact-hero">
+          <div class="hero-copy compact-copy">
+            <h2 id="focusTitle">전체 규칙</h2>
+            <p id="focusDescription">배운 규칙을 바탕으로 문제를 풀어보세요.</p>
+            <div class="topic-meta">
+              <span id="focusLevelText" class="focus-chip">1단계 기본</span>
+            </div>
+          </div>
+          <button id="backToTopicsBtn" class="secondary-btn" type="button">다른 규칙 선택</button>
+        </header>
+
+        <section class="quiz-card">
+          <div class="toolbar-panel">
+            <div class="difficulty-panel">
+              <div class="panel-heading">
+                <span class="status-label">난이도</span>
+                <h3 id="difficultyTitle">1단계 기본</h3>
+                <p id="difficultyDescription">규칙이 분명한 단어</p>
+              </div>
+              <div class="difficulty-buttons" role="group" aria-label="난이도 선택">
+                <button class="difficulty-btn active" type="button" data-level="1" aria-pressed="true">1단계 기본</button>
+                <button class="difficulty-btn" type="button" data-level="2" aria-pressed="false">2단계 비교</button>
+                <button class="difficulty-btn" type="button" data-level="3" aria-pressed="false">3단계 도전</button>
+              </div>
+            </div>
+
+            <div class="summary-grid" aria-label="학습 현황">
+              <article class="summary-card">
+                <span>점수</span>
+                <strong id="scoreText">0</strong>
+              </article>
+              <article class="summary-card">
+                <span>문제</span>
+                <strong id="progressText">0 / 10</strong>
+              </article>
+              <article class="summary-card">
+                <span>세트</span>
+                <strong id="roundText">1</strong>
+              </article>
+            </div>
+          </div>
+
+          <div class="progress-shell" aria-label="문제 진행">
+            <div class="progress-bar">
+              <div id="progressBar" class="progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="batch-header">
+            <div class="batch-copy">
+              <h3>문제 세트</h3>
+              <p>현재 선택한 규칙과 난이도로 문제를 확인해 보세요.</p>
+            </div>
+            <button id="newSetBtn" class="secondary-btn" type="button">새 문제 풀기</button>
+          </div>
+
+          <div id="questionList" class="question-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <template id="resultTemplate">
+    <section class="result-card">
+      <p class="eyebrow">학습 결과</p>
+      <h3 id="resultTitle">세트 완료</h3>
+      <p id="resultSummary">10문제 중 8문제를 맞혔어요.</p>
+      <div class="result-actions">
+        <button id="retryWrongBtn" class="primary-btn" type="button">오답 다시 풀기</button>
+        <button id="restartBtn" class="secondary-btn" type="button">새 문제 풀기</button>
+      </div>
+    </section>
+  </template>
+
+  <script src="pdf-vocab-data.js"></script>
+  <script src="derived-question-pools.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
