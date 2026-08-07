@@ -32,7 +32,9 @@ jobs:
           mkdir -p _site
           cp index.html _site/index.html
           cp styles.css _site/styles.css
-          cp script.js _site/script.js
+          cp app.js _site/app.js
+          cp pdf-vocab-data.js _site/pdf-vocab-data.js
+          cp derived-question-pools.js _site/derived-question-pools.js
           touch _site/.nojekyll
 
       - name: Upload artifact
