@@ -248,10 +248,284 @@ const questionPools = {
   ],
 };
 
-const activeQuestionPools =
+const derivedSourcePools =
   globalThis.derivedQuestionPools && typeof globalThis.derivedQuestionPools === "object"
     ? globalThis.derivedQuestionPools
-    : questionPools;
+    : null;
+
+const syllableOverrides = {
+  around: 2,
+  beautiful: 3,
+  bicycle: 3,
+  business: 2,
+  camera: 3,
+  chocolate: 3,
+  different: 3,
+  every: 2,
+  example: 3,
+  family: 3,
+  favorite: 3,
+  fire: 1,
+  hour: 1,
+  interesting: 4,
+  several: 3,
+  temperature: 4,
+  vegetable: 4,
+};
+
+function normalizeWordKey(word) {
+  return typeof word === "string" ? word.toLowerCase().replace(/[^a-z]/g, "") : "";
+}
+
+function clampLevel(value, fallback = 1) {
+  return Number.isInteger(value) && value >= 1 && value <= 3 ? value : fallback;
+}
+
+function sanitizeMeaning(value) {
+  if (typeof value !== "string") {
+    return "";
+  }
+
+  const trimmed = value.replace(/\s+/g, " ").trim();
+  if (!trimmed) {
+    return "";
+  }
+
+  if (trimmed.includes("�")) {
+    return "";
+  }
+
+  const weirdChars = trimmed.match(/[^\x20-\x7E가-힣0-9,./()~+\-:;·'"!? ]/g) || [];
+  if (weirdChars.length > 0) {
+    return "";
+  }
+
+  const cleaned = trimmed.replace(/\?\s*\?+\s*$/g, "").replace(/\s{2,}/g, " ").trim();
+  return /[가-힣A-Za-z]/.test(cleaned) ? cleaned : "";
+}
+
+function countWordSyllables(rawWord) {
+  const word = normalizeWordKey(rawWord);
+  if (!word) {
+    return 0;
+  }
+
+  if (syllableOverrides[word]) {
+    return syllableOverrides[word];
+  }
+
+  let working = word;
+  let extraSyllables = 0;
+
+  if (/[bcdfghjklmnpqrstvwxyz]les$/.test(working)) {
+    working = working.slice(0, -3);
+    extraSyllables += 1;
+  } else if (/[bcdfghjklmnpqrstvwxyz]le$/.test(working)) {
+    working = working.slice(0, -2);
+    extraSyllables += 1;
+  }
+
+  if (/(ches|shes|xes|zes|ses|ges|ces)$/.test(working)) {
+    working = working.replace(/es$/, "");
+    extraSyllables += 1;
+  } else if (/es$/.test(working)) {
+    // silent-e singular + s (cakes, games, grapes) should stay the same syllable count.
+    working = working.slice(0, -1);
+  } else if (/(?:[td])ed$/.test(working)) {
+    working = working.slice(0, -2);
+    extraSyllables += 1;
+  } else if (/ed$/.test(working)) {
+    working = working.slice(0, -2);
+  }
+
+  if (working.length > 2 && /[^aeiouy]e$/.test(working)) {
+    working = working.slice(0, -1);
+  }
+
+  working = working.replace(/^y/, "");
+
+  const vowelGroups = working.match(/[aeiouy]{1,2}/g) || [];
+  return Math.max(1, vowelGroups.length + extraSyllables);
+}
+
+function hasExtraEdSyllable(word) {
+  return /(?:[td])ed$/i.test(word);
+}
+
+function hasExtraEsSyllable(word) {
+  return /(ches|shes|xes|zes|ses|ges|ces)$/i.test(word);
+}
+
+function hasConsonantLeEnding(word) {
+  return /[bcdfghjklmnpqrstvwxyz]le$/i.test(word);
+}
+
+function isPlaceholderSplit(split) {
+  if (typeof split !== "string") {
+    return true;
+  }
+
+  const trimmed = split.trim();
+  return !trimmed || trimmed === "approx." || trimmed.includes("?") || /^\d+\s*음절$/.test(trimmed);
+}
+
+function makeFallbackSplit(word, category, syllables, type) {
+  if (!word) {
+    return `${syllables}음절`;
+  }
+
+  if (category === "consonantLe" && hasConsonantLeEnding(word) && syllables === 2) {
+    return `${word.slice(0, -3)} / ${word.slice(-3)}`;
+  }
+
+  if (category === "ed") {
+    return type === "extra" ? `${word.slice(0, -2)} / ed` : word;
+  }
+
+  if (category === "es") {
+    return type === "extra" ? `${word.replace(/es$/i, "")} / es` : word;
+  }
+
+  if (category === "silentE" && syllables === 1) {
+    return word;
+  }
+
+  return `${syllables}음절`;
+}
+
+function createMeaningLookup() {
+  const lookup = new Map();
+
+  if (!derivedSourcePools || typeof derivedSourcePools !== "object") {
+    return lookup;
+  }
+
+  Object.values(derivedSourcePools).forEach((entries) => {
+    if (!Array.isArray(entries)) {
+      return;
+    }
+
+    entries.forEach((entry) => {
+      const wordKey = normalizeWordKey(entry?.word);
+      const meaning = sanitizeMeaning(entry?.meaning);
+
+      if (wordKey && meaning && !lookup.has(wordKey)) {
+        lookup.set(wordKey, meaning);
+      }
+    });
+  });
+
+  return lookup;
+}
+
+function createRuleAuthorityLookup() {
+  const lookup = {};
+
+  ["silentE", "consonantLe", "ed", "es", "general"].forEach((category) => {
+    lookup[category] = new Map();
+
+    (questionPools[category] || []).forEach((entry) => {
+      const wordKey = normalizeWordKey(entry.word);
+      if (wordKey) {
+        lookup[category].set(wordKey, entry);
+      }
+    });
+  });
+
+  return lookup;
+}
+
+function normalizeEntry(category, entry, meaningLookup, authorityLookup) {
+  if (!entry || typeof entry.word !== "string") {
+    return null;
+  }
+
+  const word = entry.word.trim();
+  const wordKey = normalizeWordKey(word);
+  if (!wordKey) {
+    return null;
+  }
+
+  const authority = authorityLookup[category]?.get(wordKey) || null;
+  const countedSyllables = countWordSyllables(word);
+  const syllables = authority?.syllables || countedSyllables || entry.syllables || 1;
+  const type =
+    category === "ed"
+      ? authority?.type || (hasExtraEdSyllable(word) ? "extra" : "merged")
+      : category === "es"
+        ? authority?.type || (hasExtraEsSyllable(word) ? "extra" : "merged")
+        : entry.type;
+  let split = authority?.split || (!isPlaceholderSplit(entry.split) ? entry.split.trim() : makeFallbackSplit(word, category, syllables, type));
+
+  if (category === "ed" && type === "merged" && /\/\s*ed$/i.test(split)) {
+    split = word;
+  }
+
+  if (category === "es" && type === "merged" && /\/\s*es$/i.test(split)) {
+    split = word;
+  }
+
+  const meaning = sanitizeMeaning(entry.meaning) || meaningLookup.get(wordKey) || "";
+
+  return {
+    ...entry,
+    word,
+    syllables,
+    split,
+    type,
+    introduced: clampLevel(entry.introduced, clampLevel(authority?.introduced, Math.min(3, Math.max(1, syllables)))),
+    meaning,
+  };
+}
+
+function uniqueEntries(entries) {
+  const seen = new Set();
+
+  return entries.filter((entry) => {
+    if (!entry) {
+      return false;
+    }
+
+    const id = typeof entry.id === "string" && entry.id.trim() ? entry.id : `${entry.word}-${entry.introduced}`;
+    if (seen.has(id)) {
+      return false;
+    }
+
+    seen.add(id);
+    return true;
+  });
+}
+
+function buildActiveQuestionPools() {
+  if (!derivedSourcePools) {
+    return questionPools;
+  }
+
+  const meaningLookup = createMeaningLookup();
+  const authorityLookup = createRuleAuthorityLookup();
+  const nextPools = {};
+  const categories = new Set([
+    ...Object.keys(questionPools),
+    ...Object.keys(derivedSourcePools),
+  ]);
+
+  categories.forEach((category) => {
+    const sourceEntries =
+      Array.isArray(derivedSourcePools[category]) && derivedSourcePools[category].length
+        ? derivedSourcePools[category]
+        : questionPools[category] || [];
+
+    nextPools[category] = uniqueEntries(
+      sourceEntries
+        .map((entry) => normalizeEntry(category, entry, meaningLookup, authorityLookup))
+        .filter(Boolean),
+    );
+  });
+
+  return nextPools;
+}
+
+const activeQuestionPools = buildActiveQuestionPools();
 
 const hintMap = {
   coreVocab: [
