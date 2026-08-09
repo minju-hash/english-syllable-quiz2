@@ -361,7 +361,7 @@ function sanitizeMeaning(value) {
     return "";
   }
 
-  if (trimmed.includes(" ")) {
+  if (trimmed.includes("�")) {
     return "";
   }
 
@@ -380,7 +380,7 @@ function sanitizePhonetic(value) {
   }
 
   const trimmed = value.replace(/\s+/g, " ").trim();
-  if (!trimmed || trimmed.includes(" ")) {
+  if (!trimmed || trimmed.includes("�")) {
     return "";
   }
 
