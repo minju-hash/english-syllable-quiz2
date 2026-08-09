@@ -1,4 +1,4 @@
-﻿const BATCH_SIZE = 10;
+const BATCH_SIZE = 10;
 const STORAGE_KEY = "englishSyllableQuizHistoryV1";
 const STORAGE_VERSION = 1;
 const PRONUNCIATION_STORAGE_KEY = "englishSyllableQuizPronunciationV1";
@@ -288,6 +288,7 @@ const fallbackLexicon = {
   boxes: { phonetic: "/BAHK-siz/", meaning: "\uC0C1\uC790\uB4E4" },
   buses: { phonetic: "/BUS-iz/", meaning: "\uBC84\uC2A4\uB4E4" },
   cakes: { phonetic: "/KAYKS/", meaning: "\uCF00\uC774\uD06C\uB4E4" },
+  can: { phonetic: "/KAN/", meaning: "\uD560 \uC218 \uC788\uB2E4, \uAE61\uD1B5" },
   called: { phonetic: "/KAWLD/", meaning: "\uBD88\uB800\uB2E4, \uC804\uD654\uD588\uB2E4" },
   caps: { phonetic: "/KAPS/", meaning: "\uBAA8\uC790\uB4E4" },
   cats: { phonetic: "/KATS/", meaning: "\uACE0\uC591\uC774\uB4E4" },
@@ -304,6 +305,7 @@ const fallbackLexicon = {
   dogs: { phonetic: "/DOGZ/", meaning: "\uAC1C\uB4E4" },
   dresses: { phonetic: "/DRES-iz/", meaning: "\uB4DC\uB808\uC2A4\uB4E4, \uC637\uB4E4" },
   ducks: { phonetic: "/DUKS/", meaning: "\uC624\uB9AC\uB4E4" },
+  dollar: { phonetic: "/DAH-lur/", meaning: "\uB2EC\uB7EC" },
   eggs: { phonetic: "/EGZ/", meaning: "\uB2EC\uAC40\uB4E4" },
   excellent: { phonetic: "/EK-suh-lent/", meaning: "\uD6CC\uB96D\uD55C, \uB6F0\uC5B4\uB09C" },
   excused: { phonetic: "/ik-SKYOODZD/", meaning: "\uC6A9\uC11C\uD588\uB2E4" },
@@ -331,6 +333,7 @@ const fallbackLexicon = {
   practiced: { phonetic: "/PRAK-tist/", meaning: "\uC5F0\uC2B5\uD588\uB2E4, \uC2E4\uD589\uD588\uB2E4" },
   smiled: { phonetic: "/SMYLD/", meaning: "\uBBF8\uC18C \uC9C0\uC5C8\uB2E4" },
   sports: { phonetic: "/SPORTS/", meaning: "\uC2A4\uD3EC\uCE20" },
+  the: { phonetic: "/thuh/, /thee/", meaning: "\uADF8" },
   tomatoes: { phonetic: "/tuh-MAY-tohz/", meaning: "\uD1A0\uB9C8\uD1A0\uB4E4" },
   used: { phonetic: "/YOOZD/", meaning: "\uC0AC\uC6A9\uD588\uB2E4, \uC37C\uB2E4" },
   visited: { phonetic: "/VIZ-i-tid/", meaning: "\uBC29\uBB38\uD588\uB2E4" },
@@ -550,7 +553,7 @@ function normalizeEntry(category, entry, meaningLookup, authorityLookup) {
     split = word;
   }
 
-  const meaning = sanitizeMeaning(entry.meaning) || meaningLookup.get(wordKey) || fallbackEntry?.meaning || "";
+  const meaning = sanitizeMeaning(entry.meaning) || meaningLookup.get(wordKey) || fallbackEntry?.meaning || DEFAULT_MEANING_TEXT;
   const phonetic = sanitizePhonetic(entry.phonetic) || fallbackEntry?.phonetic || "";
 
   return {
@@ -677,6 +680,7 @@ const state = {
 };
 
 const pronunciationRequests = new Map();
+const DEFAULT_MEANING_TEXT = "뜻 준비 중";
 
 const lessonPage = document.getElementById("lessonPage");
 const quizPage = document.getElementById("quizPage");
@@ -897,7 +901,7 @@ async function fetchPronunciationData(word) {
       status: "loading",
       phonetic: fallbackEntry?.phonetic || "발음기호 불러오는 중...",
       audio: "",
-      meaning: fallbackEntry?.meaning || "",
+      meaning: fallbackEntry?.meaning || DEFAULT_MEANING_TEXT,
     });
 
     const candidates = getPronunciationLookupCandidates(word);
@@ -917,7 +921,7 @@ async function fetchPronunciationData(word) {
             status: "ready",
             phonetic: sanitizePhonetic(picked.phonetic) || fallbackEntry?.phonetic || "발음기호 없음",
             audio: picked.audio,
-            meaning: sanitizeMeaning(picked.meaning) || fallbackEntry?.meaning || "",
+            meaning: sanitizeMeaning(picked.meaning) || fallbackEntry?.meaning || DEFAULT_MEANING_TEXT,
           };
 
           setPronunciationRecord(word, readyRecord);
@@ -935,7 +939,7 @@ async function fetchPronunciationData(word) {
       status: "unavailable",
       phonetic: fallbackEntry?.phonetic || "발음기호 없음",
       audio: "",
-      meaning: fallbackEntry?.meaning || "",
+      meaning: fallbackEntry?.meaning || DEFAULT_MEANING_TEXT,
     };
     setPronunciationRecord(word, unavailableRecord);
     if (state.page === "quiz") {
@@ -1463,7 +1467,7 @@ function renderQuestionList() {
     const splitLabel = question.category === "coreVocab" ? "음절 정보" : "음절 구분";
     const pronunciation = getPronunciationRecord(question.word);
     const phoneticText = pronunciation?.phonetic || question.phonetic || (question.split ? `읽기 힌트: ${question.split}` : "발음기호 준비 중...");
-    const meaningText = question.meaning || pronunciation?.meaning || "";
+    const meaningText = question.meaning || pronunciation?.meaning || DEFAULT_MEANING_TEXT;
     const phoneticLine = meaningText ? `${phoneticText} · ${meaningText}` : phoneticText;
 
     card.className = `question-card${question.answered ? " answered" : ""}${question.answered && isCorrect ? " correct" : ""}${question.answered && !isCorrect ? " wrong" : ""}`;
