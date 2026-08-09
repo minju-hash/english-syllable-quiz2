@@ -138,7 +138,6 @@ canvas {
 }
 
 .hero-copy p,
-.sequence-panel-head span,
 .concept-description,
 .concept-points,
 .batch-copy p,
@@ -165,33 +164,6 @@ canvas {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: var(--space-3);
-}
-
-.sequence-panel {
-  padding: var(--space-2);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(81, 120, 102, 0.18);
-  background: linear-gradient(180deg, rgba(230, 239, 233, 0.92), rgba(255, 255, 255, 0.92));
-}
-
-.sequence-panel-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.sequence-panel-head strong {
-  font-size: var(--text-lg);
-  color: var(--accent-strong);
-  word-break: keep-all;
-}
-
-.sequence-track {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-1);
-  margin-top: var(--space-2);
 }
 
 .sequence-track span,
@@ -601,8 +573,7 @@ button:focus-visible {
 
 @media (max-width: 700px) {
   .compact-hero,
-  .batch-header,
-  .sequence-panel-head {
+  .batch-header {
     flex-direction: column;
   }
 
