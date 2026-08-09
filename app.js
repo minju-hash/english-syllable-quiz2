@@ -361,7 +361,7 @@ function sanitizeMeaning(value) {
     return "";
   }
 
-  if (trimmed.includes("�")) {
+  if (trimmed.includes(" ")) {
     return "";
   }
 
@@ -380,7 +380,7 @@ function sanitizePhonetic(value) {
   }
 
   const trimmed = value.replace(/\s+/g, " ").trim();
-  if (!trimmed || trimmed.includes("�")) {
+  if (!trimmed || trimmed.includes(" ")) {
     return "";
   }
 
@@ -1034,21 +1034,34 @@ function playAudioFromUrls(urls, fallbackWord = "") {
 }
 
 async function playPronunciation(word) {
+  if (!String(word || "").trim()) {
+    return;
+  }
+
   const record = getPronunciationRecord(word);
   const googleTtsUrl = buildGoogleTtsUrl(word);
 
   if (record?.status === "ready") {
-    playAudioFromUrls([googleTtsUrl, record.audio], word);
+    if (record.audio) {
+      playAudioFromUrls([record.audio, googleTtsUrl], word);
+      return;
+    }
+
+    speakWithBrowser(word) || playAudioFromUrls([googleTtsUrl], word);
     return;
   }
 
   if (record?.status === "unavailable") {
-    playAudioFromUrls([googleTtsUrl], word);
+    speakWithBrowser(word) || playAudioFromUrls([googleTtsUrl], word);
     return;
   }
 
+  const spokeImmediately = speakWithBrowser(word);
   const fetched = await fetchPronunciationData(word);
-  playAudioFromUrls([googleTtsUrl, fetched?.audio], word);
+
+  if (!spokeImmediately) {
+    playAudioFromUrls([fetched?.audio, googleTtsUrl], word);
+  }
 }
 
 function isValidEntry(entry) {
