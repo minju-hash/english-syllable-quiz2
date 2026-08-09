@@ -4,6 +4,7 @@ const STORAGE_VERSION = 1;
 const PRONUNCIATION_STORAGE_KEY = "englishSyllableQuizPronunciationV1";
 const PRONUNCIATION_STORAGE_VERSION = 1;
 const DICTIONARY_API_BASE = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+const GOOGLE_TTS_BASE = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=";
 
 const conceptLessons = [
   {
@@ -291,7 +292,7 @@ function sanitizeMeaning(value) {
     return "";
   }
 
-  if (trimmed.includes("�")) {
+  if (trimmed.includes(" ")) {
     return "";
   }
 
@@ -873,6 +874,23 @@ function ensurePronunciationsForQuestions(questions) {
   });
 }
 
+function getPreferredEnglishVoice() {
+  if (!("speechSynthesis" in window) || typeof window.speechSynthesis.getVoices !== "function") {
+    return null;
+  }
+
+  const voices = window.speechSynthesis.getVoices();
+  if (!Array.isArray(voices) || voices.length === 0) {
+    return null;
+  }
+
+  return (
+    voices.find((voice) => /^en[-_]/i.test(voice.lang) && /google|microsoft|samantha|zira|aria/i.test(voice.name)) ||
+    voices.find((voice) => /^en[-_]/i.test(voice.lang)) ||
+    null
+  );
+}
+
 function speakWithBrowser(word) {
   if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
     return false;
@@ -882,33 +900,63 @@ function speakWithBrowser(word) {
   utterance.lang = "en-US";
   utterance.rate = 0.9;
   utterance.pitch = 1;
+  const preferredVoice = getPreferredEnglishVoice();
+  if (preferredVoice) {
+    utterance.voice = preferredVoice;
+    utterance.lang = preferredVoice.lang || "en-US";
+  }
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
   return true;
 }
 
-function playPronunciation(word) {
+function buildGoogleTtsUrl(word) {
+  const normalized = String(word || "").trim();
+  return normalized ? `${GOOGLE_TTS_BASE}${encodeURIComponent(normalized)}` : "";
+}
+
+function playAudioFromUrls(urls, fallbackWord = "") {
+  const queue = urls.filter(Boolean);
+
+  if (queue.length === 0) {
+    if (fallbackWord) {
+      speakWithBrowser(fallbackWord);
+    }
+    return false;
+  }
+
+  const [currentUrl, ...restUrls] = queue;
+  const audio = new Audio(currentUrl);
+  audio.play().catch(() => {
+    if (restUrls.length > 0) {
+      playAudioFromUrls(restUrls, fallbackWord);
+      return;
+    }
+
+    if (fallbackWord) {
+      speakWithBrowser(fallbackWord);
+    }
+  });
+
+  return true;
+}
+
+async function playPronunciation(word) {
   const record = getPronunciationRecord(word);
-  const spokenImmediately = speakWithBrowser(word);
+  const googleTtsUrl = buildGoogleTtsUrl(word);
 
-  if (!record || record.status === "loading") {
-    fetchPronunciationData(word);
+  if (record?.status === "ready") {
+    playAudioFromUrls([googleTtsUrl, record.audio], word);
     return;
   }
 
-  if (spokenImmediately) {
+  if (record?.status === "unavailable") {
+    playAudioFromUrls([googleTtsUrl], word);
     return;
   }
 
-  if (record.audio) {
-    const audio = new Audio(record.audio);
-    audio.play().catch(() => {
-      fetchPronunciationData(word);
-    });
-    return;
-  }
-
-  fetchPronunciationData(word);
+  const fetched = await fetchPronunciationData(word);
+  playAudioFromUrls([googleTtsUrl, fetched?.audio], word);
 }
 
 function isValidEntry(entry) {
