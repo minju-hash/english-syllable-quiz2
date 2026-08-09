@@ -1,4 +1,4 @@
-const BATCH_SIZE = 10;
+﻿const BATCH_SIZE = 10;
 const STORAGE_KEY = "englishSyllableQuizHistoryV1";
 const STORAGE_VERSION = 1;
 const PRONUNCIATION_STORAGE_KEY = "englishSyllableQuizPronunciationV1";
@@ -10,48 +10,48 @@ const conceptLessons = [
   {
     key: "silentE",
     order: 1,
-    label: "추천 순서 1",
-    title: "묵음 e",
-    description: "소리 나지 않는 e",
+    label: "異붿쿇 ?쒖꽌 1",
+    title: "臾듭쓬 e",
+    description: "?뚮━ ?섏? ?딅뒗 e",
     points: [
-      "끝의 e는 보통 소리 내지 않아요.",
-      "하지만 e가 보인다고 해서 항상 1음절은 아니에요.",
+      "?앹쓽 e??蹂댄넻 ?뚮━ ?댁? ?딆븘??",
+      "?섏?留?e媛 蹂댁씤?ㅺ퀬 ?댁꽌 ??긽 1?뚯젅? ?꾨땲?먯슂.",
     ],
     examples: ["make", "name", "inside", "complete"],
   },
   {
     key: "consonantLe",
     order: 2,
-    label: "추천 순서 2",
-    title: "자음 + le",
-    description: "끝의 -le 음절",
+    label: "異붿쿇 ?쒖꽌 2",
+    title: "?먯쓬 + le",
+    description: "?앹쓽 -le ?뚯젅",
     points: [
-      "-ble, -tle, -ple, -cle처럼 끝의 -le을 살펴보세요.",
-      "table은 ta / ble, little은 lit / tle로 나뉘어요.",
+      "-ble, -tle, -ple, -cle泥섎읆 ?앹쓽 -le???댄렣蹂댁꽭??",
+      "table? ta / ble, little? lit / tle濡??섎돇?댁슂.",
     ],
     examples: ["table", "little", "circle", "bicycle"],
   },
   {
     key: "ed",
     order: 3,
-    label: "추천 순서 3",
+    label: "異붿쿇 ?쒖꽌 3",
     title: "-ed",
-    description: "음절이 늘어나는 경우",
+    description: "?뚯젅???섏뼱?섎뒗 寃쎌슦",
     points: [
-      "wanted, needed처럼 /id/로 들리면 음절이 하나 늘어요.",
-      "jumped, baked처럼 끝소리만 바뀌면 음절 수는 그대로예요.",
+      "wanted, needed泥섎읆 /id/濡??ㅻ━硫??뚯젅???섎굹 ?섏뼱??",
+      "jumped, baked泥섎읆 ?앹냼由щ쭔 諛붾뚮㈃ ?뚯젅 ?섎뒗 洹몃?濡쒖삁??",
     ],
     examples: ["jumped", "wanted", "painted", "created"],
   },
   {
     key: "es",
     order: 4,
-    label: "추천 순서 4",
+    label: "異붿쿇 ?쒖꽌 4",
     title: "-es / -s",
-    description: "추가 음절 구분",
+    description: "異붽? ?뚯젅 援щ텇",
     points: [
-      "boxes, dishes처럼 /iz/가 들리면 음절이 하나 늘어요.",
-      "cakes, books처럼 소리만 붙으면 음절 수는 그대로예요.",
+      "boxes, dishes泥섎읆 /iz/媛 ?ㅻ━硫??뚯젅???섎굹 ?섏뼱??",
+      "cakes, books泥섎읆 ?뚮━留?遺숈쑝硫??뚯젅 ?섎뒗 洹몃?濡쒖삁??",
     ],
     examples: ["cakes", "boxes", "wishes", "sentences"],
   },
@@ -59,23 +59,23 @@ const conceptLessons = [
     key: "coreVocab",
     order: 5,
     label: "PDF 단어장",
-    title: "필수 영단어 800",
-    description: "PDF 단어장 기반 음절 퀴즈",
+    title: "?꾩닔 ?곷떒??800",
+    description: "PDF ?⑥뼱??湲곕컲 ?뚯젅 ?댁쫰",
     points: [
-      "업로드된 단어장에서 뽑은 단어들로 난이도별 문제를 만들어요.",
-      "새 문제를 받을 때 직전 세트 단어가 바로 반복되지 않도록 관리해요.",
+      "?낅줈?쒕맂 ?⑥뼱?μ뿉??戮묒? ?⑥뼱?ㅻ줈 ?쒖씠?꾨퀎 臾몄젣瑜?留뚮뱾?댁슂.",
+      "??臾몄젣瑜?諛쏆쓣 ??吏곸쟾 ?명듃 ?⑥뼱媛 諛붾줈 諛섎났?섏? ?딅룄濡?愿由ы빐??",
     ],
     examples: ["apple", "banana", "circle", "yesterday"],
   },
   {
     key: "all",
     order: 6,
-    label: "종합 연습",
-    title: "전체 규칙",
-    description: "배운 규칙을 섞어서 연습",
+    label: "醫낇빀 ?곗뒿",
+    title: "?꾩껜 洹쒖튃",
+    description: "諛곗슫 洹쒖튃???욎뼱???곗뒿",
     points: [
-      "여러 규칙을 함께 보고 실제 읽기처럼 연습해 보세요.",
-      "철자 길이보다 실제 발음의 박자를 먼저 생각해 보세요.",
+      "?щ윭 洹쒖튃???④퍡 蹂닿퀬 ?ㅼ젣 ?쎄린泥섎읆 ?곗뒿??蹂댁꽭??",
+      "泥좎옄 湲몄씠蹂대떎 ?ㅼ젣 諛쒖쓬??諛뺤옄瑜?癒쇱? ?앷컖??蹂댁꽭??",
     ],
     examples: ["make", "table", "wanted", "boxes"],
   },
@@ -83,19 +83,19 @@ const conceptLessons = [
 
 const difficultyMeta = {
   1: {
-    title: "1단계 기본",
-    description: "규칙이 분명한 단어",
-    badge: "1단계 기본",
+    title: "1?④퀎 湲곕낯",
+    description: "洹쒖튃??遺꾨챸???⑥뼱",
+    badge: "1?④퀎 湲곕낯",
   },
   2: {
-    title: "2단계 비교",
-    description: "헷갈리는 단어 포함",
-    badge: "2단계 비교",
+    title: "2?④퀎 鍮꾧탳",
+    description: "?룰컝由щ뒗 ?⑥뼱 ?ы븿",
+    badge: "2?④퀎 鍮꾧탳",
   },
   3: {
-    title: "3단계 도전",
-    description: "예외와 혼합 문제",
-    badge: "3단계 도전",
+    title: "3?④퀎 ?꾩쟾",
+    description: "?덉쇅? ?쇳빀 臾몄젣",
+    badge: "3?④퀎 ?꾩쟾",
   },
 };
 
@@ -274,6 +274,72 @@ const syllableOverrides = {
   vegetable: 4,
 };
 
+const fallbackLexicon = {
+  a: { phonetic: "/uh/, /ay/", meaning: "\uD558\uB098\uC758, \uC5B4\uB5A4" },
+  an: { phonetic: "/an/", meaning: "\uD558\uB098\uC758, \uC5B4\uB5A4" },
+  apple: { phonetic: "/AP-uhl/", meaning: "\uC0AC\uACFC" },
+  apples: { phonetic: "/AP-uhlz/", meaning: "\uC0AC\uACFC\uB4E4" },
+  asked: { phonetic: "/ASKT/", meaning: "\uBB3B\uC5C8\uB2E4, \uBD80\uD0C1\uD588\uB2E4" },
+  bags: { phonetic: "/BAGZ/", meaning: "\uAC00\uBC29\uB4E4" },
+  balls: { phonetic: "/BAWLZ/", meaning: "\uACF5\uB4E4" },
+  bananas: { phonetic: "/buh-NAN-uhz/", meaning: "\uBC14\uB098\uB098\uB4E4" },
+  books: { phonetic: "/BUKS/", meaning: "\uCC45\uB4E4" },
+  bottle: { phonetic: "/BAH-tl/", meaning: "\uBCD1" },
+  boxes: { phonetic: "/BAHK-siz/", meaning: "\uC0C1\uC790\uB4E4" },
+  buses: { phonetic: "/BUS-iz/", meaning: "\uBC84\uC2A4\uB4E4" },
+  cakes: { phonetic: "/KAYKS/", meaning: "\uCF00\uC774\uD06C\uB4E4" },
+  called: { phonetic: "/KAWLD/", meaning: "\uBD88\uB800\uB2E4, \uC804\uD654\uD588\uB2E4" },
+  caps: { phonetic: "/KAPS/", meaning: "\uBAA8\uC790\uB4E4" },
+  cats: { phonetic: "/KATS/", meaning: "\uACE0\uC591\uC774\uB4E4" },
+  changed: { phonetic: "/CHAYNJD/", meaning: "\uBCC0\uD588\uB2E4, \uBCC0\uD654\uC2DC\uCF30\uB2E4" },
+  chopstick: { phonetic: "/CHOP-stik/", meaning: "\uC816\uAC00\uB77D" },
+  classes: { phonetic: "/KLAS-iz/", meaning: "\uD559\uAE09\uB4E4, \uC218\uC5C5\uB4E4" },
+  clocks: { phonetic: "/KLOKS/", meaning: "\uC2DC\uACC4\uB4E4" },
+  closed: { phonetic: "/KLOHZD/", meaning: "\uB2EB\uC558\uB2E4, \uB2EB\uD614\uB2E4" },
+  coats: { phonetic: "/KOHTS/", meaning: "\uC678\uD22C\uB4E4" },
+  crayon: { phonetic: "/KRAY-on/", meaning: "\uD06C\uB808\uC6A9" },
+  cups: { phonetic: "/KUPS/", meaning: "\uCEF5\uB4E4" },
+  danced: { phonetic: "/DANST/", meaning: "\uCDA4\uCD04\uB2E4" },
+  dishes: { phonetic: "/DISH-iz/", meaning: "\uC811\uC2DC\uB4E4, \uC694\uB9AC\uB4E4" },
+  dogs: { phonetic: "/DOGZ/", meaning: "\uAC1C\uB4E4" },
+  dresses: { phonetic: "/DRES-iz/", meaning: "\uB4DC\uB808\uC2A4\uB4E4, \uC637\uB4E4" },
+  ducks: { phonetic: "/DUKS/", meaning: "\uC624\uB9AC\uB4E4" },
+  eggs: { phonetic: "/EGZ/", meaning: "\uB2EC\uAC40\uB4E4" },
+  excellent: { phonetic: "/EK-suh-lent/", meaning: "\uD6CC\uB96D\uD55C, \uB6F0\uC5B4\uB09C" },
+  excused: { phonetic: "/ik-SKYOODZD/", meaning: "\uC6A9\uC11C\uD588\uB2E4" },
+  exercised: { phonetic: "/EK-ser-syzd/", meaning: "\uC6B4\uB3D9\uD588\uB2E4, \uC5F0\uC2B5\uD588\uB2E4" },
+  fixed: { phonetic: "/FIKST/", meaning: "\uACE0\uCCE4\uB2E4, \uACE0\uC815\uD588\uB2E4" },
+  games: { phonetic: "/GAYMZ/", meaning: "\uAC8C\uC784\uB4E4, \uACBD\uAE30\uB4E4" },
+  glasses: { phonetic: "/GLAS-iz/", meaning: "\uC548\uACBD, \uC720\uB9AC\uC794\uB4E4" },
+  god: { phonetic: "/GOD/", meaning: "\uC2E0" },
+  grapes: { phonetic: "/GRAYPS/", meaning: "\uD3EC\uB3C4\uB4E4" },
+  hats: { phonetic: "/HATS/", meaning: "\uBAA8\uC790\uB4E4" },
+  hiking: { phonetic: "/HY-king/", meaning: "\uD558\uC774\uD0B9" },
+  hoped: { phonetic: "/HOHPT/", meaning: "\uD76C\uB9DD\uD588\uB2E4" },
+  liked: { phonetic: "/LYKT/", meaning: "\uC88B\uC544\uD588\uB2E4" },
+  lived: { phonetic: "/LIVD/", meaning: "\uC0B4\uC558\uB2E4" },
+  loved: { phonetic: "/LUVD/", meaning: "\uC0AC\uB791\uD588\uB2E4" },
+  maps: { phonetic: "/MAPS/", meaning: "\uC9C0\uB3C4\uB4E4" },
+  may: { phonetic: "/MAY/", meaning: "~\uD574\uB3C4 \uB418\uB2E4, 5\uC6D4" },
+  moved: { phonetic: "/MOOVD/", meaning: "\uC6C0\uC9C1\uC600\uB2E4, \uC774\uC0AC\uD588\uB2E4" },
+  needed: { phonetic: "/NEE-did/", meaning: "\uD544\uC694\uB85C \uD588\uB2E4" },
+  okay: { phonetic: "/oh-KAY/", meaning: "\uC88B\uC544, \uAD1C\uCC2E\uC544" },
+  opened: { phonetic: "/OH-puhnd/", meaning: "\uC5F4\uC5C8\uB2E4" },
+  pages: { phonetic: "/PAY-jiz/", meaning: "\uD398\uC774\uC9C0\uB4E4" },
+  placed: { phonetic: "/PLAYST/", meaning: "\uB193\uC558\uB2E4, \uBC30\uCE58\uD588\uB2E4" },
+  potatoes: { phonetic: "/puh-TAY-tohz/", meaning: "\uAC10\uC790\uB4E4" },
+  practiced: { phonetic: "/PRAK-tist/", meaning: "\uC5F0\uC2B5\uD588\uB2E4, \uC2E4\uD589\uD588\uB2E4" },
+  smiled: { phonetic: "/SMYLD/", meaning: "\uBBF8\uC18C \uC9C0\uC5C8\uB2E4" },
+  sports: { phonetic: "/SPORTS/", meaning: "\uC2A4\uD3EC\uCE20" },
+  tomatoes: { phonetic: "/tuh-MAY-tohz/", meaning: "\uD1A0\uB9C8\uD1A0\uB4E4" },
+  used: { phonetic: "/YOOZD/", meaning: "\uC0AC\uC6A9\uD588\uB2E4, \uC37C\uB2E4" },
+  visited: { phonetic: "/VIZ-i-tid/", meaning: "\uBC29\uBB38\uD588\uB2E4" },
+  waited: { phonetic: "/WAY-tid/", meaning: "\uAE30\uB2E4\uB838\uB2E4" },
+  walked: { phonetic: "/WAWKT/", meaning: "\uAC78\uC5C8\uB2E4" },
+  watches: { phonetic: "/WOTCH-iz/", meaning: "\uC2DC\uACC4\uB4E4" },
+  worked: { phonetic: "/WERKT/", meaning: "\uC77C\uD588\uB2E4, \uC791\uB3D9\uD588\uB2E4" },
+};
+
 function normalizeWordKey(word) {
   return typeof word === "string" ? word.toLowerCase().replace(/[^a-z]/g, "") : "";
 }
@@ -303,6 +369,23 @@ function sanitizeMeaning(value) {
 
   const cleaned = trimmed.replace(/\?\s*\?+\s*$/g, "").replace(/\s{2,}/g, " ").trim();
   return /[가-힣A-Za-z]/.test(cleaned) ? cleaned : "";
+}
+
+function sanitizePhonetic(value) {
+  if (typeof value !== "string") {
+    return "";
+  }
+
+  const trimmed = value.replace(/\s+/g, " ").trim();
+  if (!trimmed || trimmed.includes(" ")) {
+    return "";
+  }
+
+  return /[A-Za-zɑɒæəɜɛɪʊʌɔðθʃʒŋˈˌ.\-\/]/.test(trimmed) ? trimmed : "";
+}
+
+function getFallbackLexiconEntry(word) {
+  return fallbackLexicon[normalizeWordKey(word)] || null;
 }
 
 function countWordSyllables(rawWord) {
@@ -367,12 +450,12 @@ function isPlaceholderSplit(split) {
   }
 
   const trimmed = split.trim();
-  return !trimmed || trimmed === "approx." || trimmed.includes("?") || /^\d+\s*음절$/.test(trimmed);
+  return !trimmed || trimmed === "approx." || trimmed.includes("?") || /^\d+\s*?뚯젅$/.test(trimmed);
 }
 
 function makeFallbackSplit(word, category, syllables, type) {
   if (!word) {
-    return `${syllables}음절`;
+    return `${syllables}?뚯젅`;
   }
 
   if (category === "consonantLe" && hasConsonantLeEnding(word) && syllables === 2) {
@@ -391,7 +474,7 @@ function makeFallbackSplit(word, category, syllables, type) {
     return word;
   }
 
-  return `${syllables}음절`;
+  return `${syllables}?뚯젅`;
 }
 
 function createMeaningLookup() {
@@ -448,6 +531,7 @@ function normalizeEntry(category, entry, meaningLookup, authorityLookup) {
   }
 
   const authority = authorityLookup[category]?.get(wordKey) || null;
+  const fallbackEntry = getFallbackLexiconEntry(word);
   const countedSyllables = countWordSyllables(word);
   const syllables = authority?.syllables || countedSyllables || entry.syllables || 1;
   const type =
@@ -466,7 +550,8 @@ function normalizeEntry(category, entry, meaningLookup, authorityLookup) {
     split = word;
   }
 
-  const meaning = sanitizeMeaning(entry.meaning) || meaningLookup.get(wordKey) || "";
+  const meaning = sanitizeMeaning(entry.meaning) || meaningLookup.get(wordKey) || fallbackEntry?.meaning || "";
+  const phonetic = sanitizePhonetic(entry.phonetic) || fallbackEntry?.phonetic || "";
 
   return {
     ...entry,
@@ -476,6 +561,7 @@ function normalizeEntry(category, entry, meaningLookup, authorityLookup) {
     type,
     introduced: clampLevel(entry.introduced, clampLevel(authority?.introduced, Math.min(3, Math.max(1, syllables)))),
     meaning,
+    phonetic,
   };
 }
 
@@ -530,45 +616,45 @@ const activeQuestionPools = buildActiveQuestionPools();
 
 const hintMap = {
   coreVocab: [
-    "단어를 천천히 읽으며 모음 소리 덩어리를 세어 보세요.",
-    "길이가 조금 길어져도 발음 박자를 먼저 생각해 보세요.",
-    "예외가 있을 수 있으니 철자보다 실제 읽는 박자를 떠올려 보세요.",
+    "?⑥뼱瑜?泥쒖쿇???쎌쑝硫?紐⑥쓬 ?뚮━ ?⑹뼱由щ? ?몄뼱 蹂댁꽭??",
+    "湲몄씠媛 議곌툑 湲몄뼱?몃룄 諛쒖쓬 諛뺤옄瑜?癒쇱? ?앷컖??蹂댁꽭??",
+    "?덉쇅媛 ?덉쓣 ???덉쑝??泥좎옄蹂대떎 ?ㅼ젣 ?쎈뒗 諛뺤옄瑜??좎삱??蹂댁꽭??",
   ],
   silentE: [
-    "끝의 e가 실제로 소리 나는지 먼저 떠올려 보세요.",
-    "묵음 e가 보여도 앞쪽 박자를 먼저 세어 보세요.",
-    "묵음 e가 있다고 해서 항상 1음절이라고 생각하면 안 돼요.",
+    "?앹쓽 e媛 ?ㅼ젣濡??뚮━ ?섎뒗吏 癒쇱? ?좎삱??蹂댁꽭??",
+    "臾듭쓬 e媛 蹂댁뿬???욎そ 諛뺤옄瑜?癒쇱? ?몄뼱 蹂댁꽭??",
+    "臾듭쓬 e媛 ?덈떎怨??댁꽌 ??긽 1?뚯젅?대씪怨??앷컖?섎㈃ ???쇱슂.",
   ],
   consonantLe: [
-    "마지막 le 앞에 자음이 있는지 확인해 보세요.",
-    "끝의 -le이 따로 한 박자를 만드는지 생각해 보세요.",
-    "긴 단어에서도 끝의 -le이 어떤 음절을 만드는지 보세요.",
+    "留덉?留?le ?욎뿉 ?먯쓬???덈뒗吏 ?뺤씤??蹂댁꽭??",
+    "?앹쓽 -le???곕줈 ??諛뺤옄瑜?留뚮뱶?붿? ?앷컖??蹂댁꽭??",
+    "湲??⑥뼱?먯꽌???앹쓽 -le???대뼡 ?뚯젅??留뚮뱶?붿? 蹂댁꽭??",
   ],
   ed: [
-    "-ed가 따로 한 음절처럼 들리는지 확인해 보세요.",
-    "-ed가 /t/, /d/, /id/ 중 어떤 소리인지 떠올려 보세요.",
-    "철자보다 실제 발음에서 박자가 늘어나는지 먼저 판단해 보세요.",
+    "-ed媛 ?곕줈 ???뚯젅泥섎읆 ?ㅻ━?붿? ?뺤씤??蹂댁꽭??",
+    "-ed媛 /t/, /d/, /id/ 以??대뼡 ?뚮━?몄? ?좎삱??蹂댁꽭??",
+    "泥좎옄蹂대떎 ?ㅼ젣 諛쒖쓬?먯꽌 諛뺤옄媛 ?섏뼱?섎뒗吏 癒쇱? ?먮떒??蹂댁꽭??",
   ],
   es: [
-    "-s 또는 -es가 새 음절을 만드는지 생각해 보세요.",
-    "-es가 /iz/처럼 분명하게 들리는지 떠올려 보세요.",
-    "복수형이어도 음절이 안 늘어나는 단어와 늘어나는 단어를 비교해 보세요.",
+    "-s ?먮뒗 -es媛 ???뚯젅??留뚮뱶?붿? ?앷컖??蹂댁꽭??",
+    "-es媛 /iz/泥섎읆 遺꾨챸?섍쾶 ?ㅻ━?붿? ?좎삱??蹂댁꽭??",
+    "蹂듭닔?뺤씠?대룄 ?뚯젅?????섏뼱?섎뒗 ?⑥뼱? ?섏뼱?섎뒗 ?⑥뼱瑜?鍮꾧탳??蹂댁꽭??",
   ],
   general: [
-    "단어를 천천히 박자처럼 읽어 보세요.",
-    "모음 소리 덩어리가 몇 개인지 떠올려 보세요.",
-    "철자 길이보다 실제 발음 박자를 기준으로 판단해 보세요.",
+    "?⑥뼱瑜?泥쒖쿇??諛뺤옄泥섎읆 ?쎌뼱 蹂댁꽭??",
+    "紐⑥쓬 ?뚮━ ?⑹뼱由ш? 紐?媛쒖씤吏 ?좎삱??蹂댁꽭??",
+    "泥좎옄 湲몄씠蹂대떎 ?ㅼ젣 諛쒖쓬 諛뺤옄瑜?湲곗??쇰줈 ?먮떒??蹂댁꽭??",
   ],
 };
 
 const ruleMap = {
-  coreVocab: "필수 영단어 800",
-  silentE: "묵음 e",
-  consonantLe: "자음 + le",
+  coreVocab: "?꾩닔 ?곷떒??800",
+  silentE: "臾듭쓬 e",
+  consonantLe: "?먯쓬 + le",
   ed: "-ed",
   es: "-es / -s",
-  general: "기본 음절",
-  all: "전체 규칙",
+  general: "湲곕낯 ?뚯젅",
+  all: "?꾩껜 洹쒖튃",
 };
 
 const mixedBlueprints = {
@@ -684,7 +770,7 @@ function saveHistory() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.history));
   } catch (error) {
-    // localStorage를 사용할 수 없는 환경에서도 현재 세션은 계속 진행합니다.
+    // localStorage瑜??ъ슜?????녿뒗 ?섍꼍?먯꽌???꾩옱 ?몄뀡? 怨꾩냽 吏꾪뻾?⑸땲??
   }
 }
 
@@ -692,7 +778,7 @@ function savePronunciationCache() {
   try {
     localStorage.setItem(PRONUNCIATION_STORAGE_KEY, JSON.stringify(state.pronunciationCache));
   } catch (error) {
-    // 발음 캐시 저장이 실패해도 현재 기능은 계속 진행합니다.
+    // 諛쒖쓬 罹먯떆 ??μ씠 ?ㅽ뙣?대룄 ?꾩옱 湲곕뒫? 怨꾩냽 吏꾪뻾?⑸땲??
   }
 }
 
@@ -783,7 +869,7 @@ function pickPhoneticData(entries) {
 
     if (phonetic || audio || meaning) {
       return {
-        phonetic: phonetic || "발음기호 없음",
+        phonetic: phonetic || "諛쒖쓬湲고샇 ?놁쓬",
         audio: audio.startsWith("//") ? `https:${audio}` : audio,
         meaning,
       };
@@ -796,6 +882,7 @@ function pickPhoneticData(entries) {
 async function fetchPronunciationData(word) {
   const key = getPronunciationKey(word);
   const existing = getPronunciationRecord(word);
+  const fallbackEntry = getFallbackLexiconEntry(word);
 
   if (existing?.status === "ready" || existing?.status === "unavailable") {
     return existing;
@@ -808,8 +895,9 @@ async function fetchPronunciationData(word) {
   const request = (async () => {
     setPronunciationRecord(word, {
       status: "loading",
-      phonetic: "발음기호 불러오는 중...",
+      phonetic: fallbackEntry?.phonetic || "발음기호 불러오는 중...",
       audio: "",
+      meaning: fallbackEntry?.meaning || "",
     });
 
     const candidates = getPronunciationLookupCandidates(word);
@@ -827,9 +915,9 @@ async function fetchPronunciationData(word) {
         if (picked) {
           const readyRecord = {
             status: "ready",
-            phonetic: picked.phonetic,
+            phonetic: sanitizePhonetic(picked.phonetic) || fallbackEntry?.phonetic || "발음기호 없음",
             audio: picked.audio,
-            meaning: picked.meaning || "",
+            meaning: sanitizeMeaning(picked.meaning) || fallbackEntry?.meaning || "",
           };
 
           setPronunciationRecord(word, readyRecord);
@@ -845,9 +933,9 @@ async function fetchPronunciationData(word) {
 
     const unavailableRecord = {
       status: "unavailable",
-      phonetic: "발음기호 없음",
+      phonetic: fallbackEntry?.phonetic || "발음기호 없음",
       audio: "",
-      meaning: "",
+      meaning: fallbackEntry?.meaning || "",
     };
     setPronunciationRecord(word, unavailableRecord);
     if (state.page === "quiz") {
@@ -998,36 +1086,36 @@ function setPage(page) {
 }
 
 function getPoolForLevel(category, level) {
-  return (activeQuestionPools[category] || []).filter((item) => item.introduced <= level);
+  return (activeQuestionPools[category] || []).filter((item) => item.introduced === level);
 }
 
 function buildQuestion(entry, category, level) {
-  let explanation = `${entry.word}는 ${entry.split}처럼 생각하며 ${entry.syllables}음절로 연습하는 문제예요.`;
+  let explanation = `${entry.word}??${entry.split}泥섎읆 ?앷컖?섎ŉ ${entry.syllables}?뚯젅濡??곗뒿?섎뒗 臾몄젣?덉슂.`;
 
   if (category === "coreVocab") {
-    explanation = `PDF 단어장 기반 단어예요. 단어의 길이와 모음 소리를 기준으로 ${entry.syllables}음절로 연습해요.`;
+    explanation = `PDF ?⑥뼱??湲곕컲 ?⑥뼱?덉슂. ?⑥뼱??湲몄씠? 紐⑥쓬 ?뚮━瑜?湲곗??쇰줈 ${entry.syllables}?뚯젅濡??곗뒿?댁슂.`;
   }
 
   if (category === "silentE" && entry.syllables === 1) {
-    explanation = `끝의 e는 소리 나지 않아 ${entry.word}는 1음절이에요.`;
+    explanation = `?앹쓽 e???뚮━ ?섏? ?딆븘 ${entry.word}??1?뚯젅?댁뿉??`;
   }
 
   if (category === "consonantLe") {
-    explanation = `${entry.word}는 끝의 자음 + le가 따로 음절을 만들어 ${entry.split}처럼 나뉘어요.`;
+    explanation = `${entry.word}???앹쓽 ?먯쓬 + le媛 ?곕줈 ?뚯젅??留뚮뱾??${entry.split}泥섎읆 ?섎돇?댁슂.`;
   }
 
   if (category === "ed") {
     explanation =
       entry.type === "extra"
-        ? `${entry.word}는 -ed가 /id/처럼 들려 ${entry.split}처럼 음절이 하나 더 생겨요.`
-        : `${entry.word}는 -ed가 끝소리만 바꾸고 새 음절은 만들지 않아요.`;
+        ? `${entry.word}??-ed媛 /id/泥섎읆 ?ㅻ젮 ${entry.split}泥섎읆 ?뚯젅???섎굹 ???앷꺼??`
+        : `${entry.word}??-ed媛 ?앹냼由щ쭔 諛붽씀怨????뚯젅? 留뚮뱾吏 ?딆븘??`;
   }
 
   if (category === "es") {
     explanation =
       entry.type === "extra"
-        ? `${entry.word}는 -es가 /iz/처럼 들려 ${entry.split}처럼 음절이 하나 더 생겨요.`
-        : `${entry.word}는 -s가 붙어도 새 음절이 생기지 않아요.`;
+        ? `${entry.word}??-es媛 /iz/泥섎읆 ?ㅻ젮 ${entry.split}泥섎읆 ?뚯젅???섎굹 ???앷꺼??`
+        : `${entry.word}??-s媛 遺숈뼱?????뚯젅???앷린吏 ?딆븘??`;
   }
 
   return {
@@ -1278,7 +1366,7 @@ function renderConceptCards() {
               data-level="${level}"
               aria-pressed="${isActive}"
             >
-              ${level}단계
+              ${level}?④퀎
             </button>
           `;
         })
@@ -1289,7 +1377,7 @@ function renderConceptCards() {
       card.dataset.rule = lesson.key;
       card.tabIndex = 0;
       card.setAttribute("role", "button");
-      card.setAttribute("aria-label", `${lesson.title} 주제로 학습하기`);
+      card.setAttribute("aria-label", `${lesson.title} 二쇱젣濡??숈뒿?섍린`);
       card.innerHTML = `
         <div class="concept-head">
           <div>
@@ -1302,7 +1390,7 @@ function renderConceptCards() {
         <ul class="concept-points">${points}</ul>
         <div class="concept-examples">${examples}</div>
         <div class="concept-levels">${levels}</div>
-        <button class="concept-btn" type="button" data-rule="${lesson.key}">이 주제 시작</button>
+        <button class="concept-btn" type="button" data-rule="${lesson.key}">??二쇱젣 ?쒖옉</button>
       `;
 
       conceptGrid.appendChild(card);
@@ -1353,10 +1441,10 @@ function renderEmptyQuestions() {
   questionList.innerHTML = `
     <article class="question-card">
       <div class="question-card-header">
-        <span class="question-number">안내</span>
+        <span class="question-number">?덈궡</span>
       </div>
-      <p class="question-prompt">현재 선택한 조건에 사용할 수 있는 문제 데이터가 없습니다.</p>
-      <p class="question-explanation">다른 규칙이나 난이도를 선택해 주세요.</p>
+      <p class="question-prompt">?꾩옱 ?좏깮??議곌굔???ъ슜?????덈뒗 臾몄젣 ?곗씠?곌? ?놁뒿?덈떎.</p>
+      <p class="question-explanation">?ㅻⅨ 洹쒖튃?대굹 ?쒖씠?꾨? ?좏깮??二쇱꽭??</p>
     </article>
   `;
 }
@@ -1372,9 +1460,9 @@ function renderQuestionList() {
   state.questions.forEach((question, index) => {
     const card = document.createElement("article");
     const isCorrect = question.answered && question.selected === question.syllables;
-    const splitLabel = question.category === "coreVocab" ? "음절 정보" : "음절 구분";
+    const splitLabel = question.category === "coreVocab" ? "?뚯젅 ?뺣낫" : "?뚯젅 援щ텇";
     const pronunciation = getPronunciationRecord(question.word);
-    const phoneticText = pronunciation?.phonetic || "발음기호 불러오는 중...";
+    const phoneticText = pronunciation?.phonetic || question.phonetic || (question.split ? `읽기 힌트: ${question.split}` : "발음기호 준비 중...");
     const meaningText = question.meaning || pronunciation?.meaning || "";
     const phoneticLine = meaningText ? `${phoneticText} · ${meaningText}` : phoneticText;
 
@@ -1402,7 +1490,7 @@ function renderQuestionList() {
             data-choice="${choice}"
             ${question.answered ? "disabled" : ""}
           >
-            ${choice}음절
+            ${choice}?뚯젅
           </button>
         `;
       })
@@ -1412,7 +1500,7 @@ function renderQuestionList() {
       ? `
         <div class="question-feedback-block" aria-live="polite">
           <p class="question-feedback ${isCorrect ? "correct" : "wrong"}">
-            ${isCorrect ? "정답이에요." : `오답이에요. 정답은 ${question.syllables}음절이에요.`}
+            ${isCorrect ? "?뺣떟?댁뿉??" : `?ㅻ떟?댁뿉?? ?뺣떟? ${question.syllables}?뚯젅?댁뿉??`}
           </p>
           <p class="question-explanation">${splitLabel}: ${question.split}</p>
           <p class="question-explanation">${question.explanation}</p>
@@ -1422,24 +1510,24 @@ function renderQuestionList() {
 
     card.innerHTML = `
       <div class="question-card-header">
-        <span class="question-number">문제 ${index + 1} / ${state.questions.length}</span>
+        <span class="question-number">臾몄젣 ${index + 1} / ${state.questions.length}</span>
         <span class="rule-badge">${question.rule}</span>
       </div>
-      <p class="question-prompt">이 단어는 몇 음절일까요?</p>
+      <p class="question-prompt">???⑥뼱??紐??뚯젅?쇨퉴??</p>
       <div class="word-row">
         <h3 class="word-text">${question.word}</h3>
         <button
           class="pronunciation-btn"
           type="button"
           data-word="${escapeHtml(question.word)}"
-          aria-label="${escapeHtml(question.word)} 발음 듣기"
-          title="발음 듣기"
+          aria-label="${escapeHtml(question.word)} 諛쒖쓬 ?ｊ린"
+          title="諛쒖쓬 ?ｊ린"
         >
-          🔊
+          ?뵄
         </button>
       </div>
       <p class="phonetic-text">${escapeHtml(phoneticLine)}</p>
-      <p class="question-hint">힌트: ${question.hint}</p>
+      <p class="question-hint">?뚰듃: ${question.hint}</p>
       <div class="choice-grid">${choices}</div>
       ${feedback}
     `;
@@ -1482,11 +1570,11 @@ function showResultsIfFinished() {
   const retryWrongBtn = fragment.getElementById("retryWrongBtn");
   const restartBtn = fragment.getElementById("restartBtn");
 
-  resultTitle.textContent = "세트를 모두 풀었어요.";
+  resultTitle.textContent = "?명듃瑜?紐⑤몢 ??덉뼱??";
   resultSummary.textContent =
     state.wrongAnswers.length > 0
-      ? `이번 점수는 ${state.score} / ${total}이에요. 틀린 문제 ${state.wrongAnswers.length}개를 다시 풀거나 새 문제를 이어서 풀 수 있어요.`
-      : `이번 점수는 ${state.score} / ${total}이에요. 모두 맞혔어요. 새 문제로 이어서 연습해 보세요.`;
+      ? `?대쾲 ?먯닔??${state.score} / ${total}?댁뿉?? ?由?臾몄젣 ${state.wrongAnswers.length}媛쒕? ?ㅼ떆 ?嫄곕굹 ??臾몄젣瑜??댁뼱??? ???덉뼱??`
+      : `?대쾲 ?먯닔??${state.score} / ${total}?댁뿉?? 紐⑤몢 留욏삍?댁슂. ??臾몄젣濡??댁뼱???곗뒿??蹂댁꽭??`;
 
   if (state.wrongAnswers.length === 0) {
     retryWrongBtn.remove();
@@ -1592,3 +1680,4 @@ newSetBtn.addEventListener("click", startNextRound);
 
 renderConceptCards();
 setPage("lesson");
+
